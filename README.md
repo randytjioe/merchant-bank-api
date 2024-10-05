@@ -25,7 +25,6 @@ This project is a simple API that simulates interactions between merchants and b
 
 3. The API will be available at `http://localhost:5050`.
 
-
 ## API Endpoints
 
 - `POST /login`
@@ -44,8 +43,8 @@ To run tests on Postman:
 
 ```json
 {
-    "username": "JohnDoe",
-    "password": "password123"
+  "username": "JohnDoe",
+  "password": "password123"
 }
 ```
 
@@ -65,28 +64,27 @@ To run tests on Postman:
 
 ```json
 {
-    "merchant_id": "12345",
-    "amount": 100
+  "merchant_id": "12345",
+  "amount": 100
 }
 ```
 
 #### Expected Responses:
+
 ![alt text](<Screenshot from 2024-10-05 13-37-43.png>)
 
 ##### If not logged in
 
 ![alt text](<Screenshot from 2024-10-05 13-37-56-1.png>)
 
-
 ##### If balance is insufficient
+
 ![alt text](<Screenshot from 2024-10-05 13-37-56-2.png>)
 
-
 ##### If paying an amount of 0 or less
-![alt text](<Screenshot from 2024-10-05 13-37-56-3.png>)
 
+![alt text](<Screenshot from 2024-10-05 13-37-56-3.png>)
 
 #### Logout Response
 
-![alt text](<Screenshot from 2024-10-05 13-37-56.png>)# merchant-bank-api
-# merchant-bank-api
+![alt text](<Screenshot from 2024-10-05 13-37-56.png>)
