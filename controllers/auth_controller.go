@@ -11,10 +11,9 @@ import (
 type ApiResponse struct {
 	Status  string      `json:"status"`
 	Message string      `json:"message"`
-	Data    interface{} `json:"data,omitempty"` // omitempty to skip if nil
+	Data    interface{} `json:"data,omitempty"` 
 }
 
-// Login handles user login
 func Login(w http.ResponseWriter, r *http.Request) {
 	var loginRequest models.LoginRequest
 	if err := json.NewDecoder(r.Body).Decode(&loginRequest); err != nil {
@@ -58,8 +57,8 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Generate the JWT token for the customer
-	token, err := services.GenerateToken(customer.ID) // Assume you have a GenerateToken function
+
+	token, err := services.GenerateToken(customer.ID) 
 	if err != nil {
 		response := ApiResponse{
 			Status:  "error",
@@ -82,7 +81,6 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(response)
 }
 
-// Logout handles user logout
 func Logout(w http.ResponseWriter, r *http.Request) {
 	if err := services.Logout(); err != nil {
 		response := ApiResponse{

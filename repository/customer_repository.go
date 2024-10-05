@@ -30,14 +30,12 @@ func WriteCustomers(customers []models.Customer) error {
     return err
 }
 
-// Update saldo pelanggan di file JSON
 func UpdateCustomerBalance(updatedCustomer *models.Customer) error {
     customers, err := ReadCustomers()
     if err != nil {
         return err
     }
 
-    // Update saldo pelanggan yang sesuai
     for i, customer := range customers {
         if customer.ID == updatedCustomer.ID {
             customers[i].Balance = updatedCustomer.Balance
@@ -45,15 +43,13 @@ func UpdateCustomerBalance(updatedCustomer *models.Customer) error {
         }
     }
 
-    // Simpan perubahan ke file
     return WriteCustomers(customers)
 }
 
-// Fungsi untuk menambahkan history ke file JSON
+
 func AddHistory(history models.History) error {
     var histories []models.History
 
-    // Baca file history jika ada, jika tidak ada buat baru
     if _, err := os.Stat("data/history.json"); err == nil {
         file, err := os.Open("data/history.json")
         if err != nil {
@@ -65,10 +61,8 @@ func AddHistory(history models.History) error {
         json.Unmarshal(byteValue, &histories)
     }
 
-    // Tambahkan history baru
     histories = append(histories, history)
 
-    // Simpan ke file
     data, err := json.MarshalIndent(histories, "", "  ")
     if err != nil {
         return err

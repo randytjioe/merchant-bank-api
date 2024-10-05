@@ -21,16 +21,13 @@ func Payment(merchantID string, amount float64) (string, error) {
         return "", errors.New("insufficient balance")
     }
 
-    // Mengurangi saldo pelanggan
     customer.Balance -= amount
 
-    // Simpan perubahan saldo pelanggan ke dalam file JSON
     err := repository.UpdateCustomerBalance(customer)
     if err != nil {
         return "", err
     }
-
-    // Menambahkan log ke history pembayaran
+    
     history := models.History{
         ID:         time.Now().String(),
         CustomerID: customer.ID,

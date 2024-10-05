@@ -5,14 +5,13 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/dgrijalva/jwt-go" // Ensure you have this package installed
+	"github.com/dgrijalva/jwt-go" 
 	"github.com/randytjioe/merchant-bank-api/models"
 	"github.com/randytjioe/merchant-bank-api/services"
 )
 
-// Payment handles the payment request
 func Payment(w http.ResponseWriter, r *http.Request) {
-	// Extract the token from the Authorization header
+
 	authHeader := r.Header.Get("Authorization")
 	if authHeader == "" {
 		response := ApiResponse{
@@ -24,14 +23,14 @@ func Payment(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Validate the Bearer token
+
 	tokenString := strings.TrimPrefix(authHeader, "Bearer ")
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
-		// Validate the algorithm
+
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, http.ErrNotSupported
 		}
-		// Replace with your secret key
+	
 		return []byte("your_secret_key"), nil
 	})
 
@@ -45,7 +44,6 @@ func Payment(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Decode the payment request
 	var paymentRequest models.PaymentRequest
 	if err := json.NewDecoder(r.Body).Decode(&paymentRequest); err != nil {
 		response := ApiResponse{
@@ -57,7 +55,6 @@ func Payment(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Validate the payment request fields
 	if paymentRequest.MerchantID == "" {
 		response := ApiResponse{
 			Status:  "error",
@@ -78,7 +75,7 @@ func Payment(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Call the payment service
+
 	message, err := services.Payment(paymentRequest.MerchantID, paymentRequest.Amount)
 	if err != nil {
 		response := ApiResponse{
@@ -90,11 +87,11 @@ func Payment(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Send successful response
+
 	response := ApiResponse{
 		Status:  "success",
 		Message: "Payment successful",
-		Data:    message, // Assuming message contains relevant payment information
+		Data:    message, 
 	}
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(response)
